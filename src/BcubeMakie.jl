@@ -21,13 +21,21 @@ function _bcube_to_geometry(bmesh::Bcube.AbstractMesh)
     GeometryBasics.Mesh(ps, fs)
 end
 
-function MakieCore.convert_arguments(::Type{<:Wireframe}, bmesh::Bcube.AbstractMesh)
+# For mesh of dimension 2 and 3, we convert to a GeometryBasics mesh
+function MakieCore.convert_arguments(::Type{<:Wireframe}, bmesh::Bcube.AbstractMesh{2})
+    return _bcube_to_geometry(bmesh)
+end
+function MakieCore.convert_arguments(::Type{<:Wireframe}, bmesh::Bcube.AbstractMesh{3})
     return _bcube_to_geometry(bmesh)
 end
 
-# function MakieCore.plot!(plot::Wireframe{<:Tuple{<:Bcube.AbstractMesh}})
-#     bmesh = plot[1]
-#     plot
-# end
+# Wireframe doesn't support meshes of dimension 1, so we have to specialize
+function MakieCore.plot!(plot::Wireframe{<:Tuple{<:Bcube.AbstractMesh{1}}})
+    bmesh = plot[1]
+    nodes = get_nodes(bmesh)
+    x = get_coords.(nodes)
+    c2n = Bcube.connectivities_indices(bmesh, :c2n)
+
+end
 
 end # module BcubeMakie
