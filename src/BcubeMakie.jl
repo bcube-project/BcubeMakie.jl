@@ -6,14 +6,14 @@ using LinearAlgebra
 using StaticArrays
 
 """
-    bcube_mesh_to_geometry_basics_mesh(bmesh::Bcube.AbstractMesh)
+    bcube_mesh_to_makie_mesh(bmesh::Bcube.AbstractMesh)
 
 Convert a Bcube mesh to a GeometryBasics mesh.
 
 Warning : we should ensure that all elements are of order <= 1 because
 `NgonFace` only supports flat faces.
 """
-function bcube_mesh_to_geometry_basics_mesh(bmesh::Bcube.AbstractMesh)
+function bcube_mesh_to_makie_mesh(bmesh::Bcube.AbstractMesh)
     xs = get_coords.(get_nodes(bmesh))
     ps = map(GeometryBasics.Point, xs)
 
@@ -35,7 +35,7 @@ function Makie.convert_arguments(
     bmesh::Bcube.AbstractMesh,
 )
     println("Converting Bcube mesh to Makie mesh")
-    makie_mesh = bcube_mesh_to_geometry_basics_mesh(bmesh)
+    makie_mesh = bcube_mesh_to_makie_mesh(bmesh)
     return convert_arguments(p, makie_mesh)
 end
 
