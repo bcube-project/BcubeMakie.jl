@@ -12,7 +12,7 @@ Observables = "510215fc-4207-5dde-b226-833fc4488ee2"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [compat]
-Bcube = "0.2, 0.3"
+Bcube = "0.2, 0.3, 0.4"
 GeometryBasics = "0.5.9"
 LinearAlgebra = "1.11"
 Makie = "0.22.7, 0.24"
